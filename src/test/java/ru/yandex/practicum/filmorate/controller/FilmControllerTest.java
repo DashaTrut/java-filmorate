@@ -37,11 +37,12 @@ public class FilmControllerTest {
     @Test
     void create() throws Exception {
         mockMvc.perform(
-                MockMvcRequestBuilders.post(PATH)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(getContentFromFile("controller/request/film.json")))
+                        MockMvcRequestBuilders.post(PATH)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(getContentFromFile("controller/request/film.json")))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
+
     @Test
     void createNegative() throws Exception {
         mockMvc.perform(

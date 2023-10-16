@@ -29,11 +29,12 @@ public class UserController extends BaseController<User> {
         return super.update(user);
 
     }
-@Override
+
+    @Override
     public void validate(User user) {
-    if (user.getName() == null || user.getName().isBlank() || user.getName().isEmpty()) {
-        user.setName(user.getLogin());
-    }
+        if (user.getName() == null || user.getName().isBlank() || user.getName().isEmpty()) {
+            user.setName(user.getLogin());
+        }
     }
 }
 

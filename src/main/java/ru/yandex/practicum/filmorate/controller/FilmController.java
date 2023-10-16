@@ -3,6 +3,7 @@ package ru.yandex.practicum.filmorate.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.Film;
+
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
@@ -30,6 +31,7 @@ public class FilmController extends BaseController<Film> {
         log.info("Update film{}", film);
         return super.update(film);
     }
+
     @Override
     public void validate(Film film) {
         if (film.getReleaseDate().isBefore(LocalDate.of(1895, 12, 28))) {
