@@ -58,7 +58,7 @@ public class FilmControllerTest {
                 .name("Name")
                 .description("Description")
                 .releaseDate(LocalDate.of(1800, 10, 15))
-                .duration_min(100)
+                .duration(100)
                 .build();
 
         Assertions.assertThrows(EntityNotFoundException.class, () -> filmController.addFilm(film));
@@ -70,7 +70,7 @@ public class FilmControllerTest {
                 .name("Name")
                 .description("Description")
                 .releaseDate(LocalDate.of(1950, 10, 15))
-                .duration_min(100)
+                .duration(100)
                 .build();
         Film newFilm = filmController.addFilm(film);
         Assertions.assertEquals(film.getName(), newFilm.getName());

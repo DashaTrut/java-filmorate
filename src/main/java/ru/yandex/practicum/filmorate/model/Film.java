@@ -21,6 +21,6 @@ public class Film extends BaseUnit {
     @NotNull
     private LocalDate releaseDate;
     @Min(1)
-    private int duration_min; //    продолжительность фильма
+    private int duration; //    продолжительность фильма
 
 }
