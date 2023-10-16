@@ -31,7 +31,6 @@ public abstract class BaseController<T extends BaseUnit> {
         storage.put(data.getId(), data);
         return data;
     }
-    
-    public abstract void validate(T data);
 
+    public abstract void validate(T data);
 }
