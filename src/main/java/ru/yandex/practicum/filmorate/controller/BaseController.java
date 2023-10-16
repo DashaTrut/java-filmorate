@@ -1,8 +1,6 @@
 package ru.yandex.practicum.filmorate.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
 import ru.yandex.practicum.filmorate.model.BaseUnit;
-import ru.yandex.practicum.filmorate.model.Film;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,5 +31,7 @@ public abstract class BaseController<T extends BaseUnit> {
         storage.put(data.getId(), data);
         return data;
     }
+    
     public abstract void validate(T data);
+
 }
