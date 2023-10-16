@@ -9,7 +9,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -26,5 +27,5 @@ public class User extends BaseUnit{
     private String login;
     private String name; //    имя для отображения
     @PastOrPresent
-    private LocalDateTime birthday;
+    private LocalDate birthday;
 }

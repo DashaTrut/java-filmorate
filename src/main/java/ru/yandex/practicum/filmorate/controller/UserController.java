@@ -16,8 +16,8 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
-//@AllArgsConstructor
-@RestController("/users")
+@RestController
+@RequestMapping("/users")
 public class UserController extends BaseController<User> {
 
     @GetMapping
@@ -39,9 +39,9 @@ public class UserController extends BaseController<User> {
     }
 @Override
     public void validate(User user) {
-        if (user.getName().isBlank()) {
-            user.setName(user.getLogin());
-        }
+    if (user.getName() == null || user.getName().isBlank() || user.getName().isEmpty()) {
+        user.setName(user.getLogin());
+    }
     }
 }
 

@@ -12,7 +12,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.util.ResourceUtils;
-import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.model.User;
+
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -22,57 +23,57 @@ import java.time.LocalDate;
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-public class FilmControllerTest {
-    public static final String PATH = "/films";
-    private FilmController filmController;
+public class UserControllerTest {
+    public static final String PATH = "/users";
+    private UserController userController;
     @Autowired
     private MockMvc mockMvc;
 
     @BeforeEach
     void setUp() {
-        filmController = new FilmController();
+        userController = new UserController();
 
     }
 
     @Test
     void create() throws Exception {
         mockMvc.perform(
-                MockMvcRequestBuilders.post(PATH)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(getContentFromFile("controller/request/film.json")))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                        MockMvcRequestBuilders.post(PATH)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(getContentFromFile("controller/request/user.json")))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(getContentFromFile(
+                        "controller/response/user.json")));
     }
+
     @Test
-    void createNegative() throws Exception {
+    void createNegativeEmail() throws Exception {
         mockMvc.perform(
                         MockMvcRequestBuilders.post(PATH)
                                 .contentType(MediaType.APPLICATION_JSON)
-                                .content(getContentFromFile("controller/request/film-without-releaseData.json")))
+                                .content(getContentFromFile("controller/request/user-without-email.json")))
                 .andExpect(MockMvcResultMatchers.status().is4xxClientError());
     }
 
     @Test
-    void validateNegativeFilm() {
-        Film film = Film.builder()
-                .name("Name")
-                .description("Description")
-                .releaseDate(LocalDate.of(1800, 10, 15))
-                .duration_min(100)
-                .build();
-
-        Assertions.assertThrows(EntityNotFoundException.class, () -> filmController.addFilm(film));
+    void createNegativeBirthday() throws Exception {
+        mockMvc.perform(
+                        MockMvcRequestBuilders.post(PATH)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(getContentFromFile("controller/request/user-birthday-future.json")))
+                .andExpect(MockMvcResultMatchers.status().is4xxClientError());
     }
 
+
     @Test
-    void validatePositiveFilm() {
-        Film film = Film.builder()
-                .name("Name")
-                .description("Description")
-                .releaseDate(LocalDate.of(1950, 10, 15))
-                .duration_min(100)
+    void validatePositiveUser() {
+        User user = User.builder()
+                .email("adres@com")
+                .login("Dasha")
+                .birthday(LocalDate.of(2000, 10, 15))
                 .build();
-        Film newFilm = filmController.addFilm(film);
-        Assertions.assertEquals(film.getName(), newFilm.getName());
+        User newUser = userController.addUser(user);
+        Assertions.assertEquals(user.getName(), newUser.getName());
     }
 
     private String getContentFromFile(String filename) {
@@ -84,3 +85,5 @@ public class FilmControllerTest {
         }
     }
 }
+
+

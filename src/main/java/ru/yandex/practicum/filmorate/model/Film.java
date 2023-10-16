@@ -4,14 +4,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Constraint;
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
 import javax.validation.constraints.*;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.time.LocalDate;
 
 @Data
@@ -24,7 +18,7 @@ public class Film extends BaseUnit {
     private String name;
     @Size(max = 200)
     private String description;
-
+    @NotNull
     private LocalDate releaseDate;
     @Min(1)
     private int duration_min; //    продолжительность фильма

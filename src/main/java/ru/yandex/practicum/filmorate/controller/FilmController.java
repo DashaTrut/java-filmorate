@@ -1,6 +1,7 @@
 package ru.yandex.practicum.filmorate.controller;
 
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.Film;
@@ -14,8 +15,8 @@ import java.util.Map;
 
 
 @Slf4j
-//@AllArgsConstructor
-@RestController("/films")
+@RestController
+@RequestMapping("/films")
 public class FilmController extends BaseController<Film> {
 
     @GetMapping
@@ -27,7 +28,6 @@ public class FilmController extends BaseController<Film> {
     @PostMapping //добавление фильма;
     public Film addFilm(@Valid @RequestBody Film film) {
         log.info("Add film{}", film);
-        validate(film);
         return super.create(film);
     }
 
