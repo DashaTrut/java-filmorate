@@ -11,7 +11,7 @@ public abstract class BaseController<T extends BaseUnit> {
     private final Map<Long, T> storage = new HashMap<>();
     private long generationId;
 
-    public List<T> getMap() {  // Обработка GET-запроса по пути "/films"  получение всех фильмов.
+    public List<T> getMap() {
         return new ArrayList<T>(storage.values());
     }
 
