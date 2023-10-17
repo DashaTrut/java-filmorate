@@ -14,19 +14,19 @@ public class UserController extends BaseController<User> {
 
     @GetMapping
     public List<User> getUsers() {  //    получение списка всех пользователей.
-        return super.getMap();
+        return getMap();
     }
 
     @PostMapping //добавление пользователя;
     public User addUser(@Valid @RequestBody User user) {
         log.info("Add user{}", user);
-        return super.create(user);
+        return create(user);
     }
 
     @PutMapping //обновление пользователя;
     public User updateUser(@Valid @RequestBody User user) throws EntityNotFoundException {
         log.info("Update user{}", user);
-        return super.update(user);
+        return update(user);
 
     }
 

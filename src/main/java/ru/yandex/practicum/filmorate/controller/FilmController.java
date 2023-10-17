@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/films")
 public class FilmController extends BaseController<Film> {
-    LocalDate MIN_DATE_RELEASE = LocalDate.of(1895, 12, 28);
+    private final static LocalDate MIN_DATE_RELEASE = LocalDate.of(1895, 12, 28);
 
     @GetMapping
     public List<Film> getFilms() {  // Обработка GET-запроса по пути "/films"  получение всех фильмов.
