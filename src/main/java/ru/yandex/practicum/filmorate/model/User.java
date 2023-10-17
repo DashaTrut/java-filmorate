@@ -18,6 +18,7 @@ import java.time.LocalDate;
 public class User extends BaseUnit {
 
     @Email
+    @NotBlank
     private String email;
     @NotBlank
     private String login;
