@@ -13,10 +13,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/films")
 public class FilmController extends BaseController<Film> {
-    private final LocalDate MIN_DATE_RELEASE = LocalDate.of(1895, 12, 28);
+    private final LocalDate minReleaseDate = LocalDate.of(1895, 12, 28);
 
     @GetMapping
-    public List<Film> getFilms() {  // Обработка GET-запроса по пути "/films"  получение всех фильмов.
+    public List<Film> getFilms() {  // Обработка GET-запроса по пути "/films" получение всех фильмов.
         log.info("Get films");
         return getMap();
     }
@@ -35,8 +35,8 @@ public class FilmController extends BaseController<Film> {
 
     @Override
     public void validate(Film film) {
-        if (film.getReleaseDate().isBefore(MIN_DATE_RELEASE)) {
-            throw new EntityNotFoundException(String.format("Дата релиза раньше %s", MIN_DATE_RELEASE));
+        if (film.getReleaseDate().isBefore(minReleaseDate)) {
+            throw new EntityNotFoundException(String.format("Дата релиза раньше %s", minReleaseDate));
         }
     }
 }
