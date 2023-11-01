@@ -1,4 +1,4 @@
-package ru.yandex.practicum.filmorate.controller;
+package ru.yandex.practicum.filmorate.exception;
 
 
 public class EntityNotFoundException extends RuntimeException {
@@ -6,7 +6,5 @@ public class EntityNotFoundException extends RuntimeException {
         super(message);
     }
 
-    public EntityNotFoundException() {
-        super();
-    }
+
 }

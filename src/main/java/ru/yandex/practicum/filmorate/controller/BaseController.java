@@ -1,5 +1,6 @@
 package ru.yandex.practicum.filmorate.controller;
 
+import ru.yandex.practicum.filmorate.exception.EntityNotFoundException;
 import ru.yandex.practicum.filmorate.model.BaseUnit;
 
 import java.util.ArrayList;
