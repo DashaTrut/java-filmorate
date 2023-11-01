@@ -7,7 +7,6 @@ import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.storage.memory.InMemoryBaseStorage;
 import ru.yandex.practicum.filmorate.storage.memory.InMemoryFilmStorage;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;

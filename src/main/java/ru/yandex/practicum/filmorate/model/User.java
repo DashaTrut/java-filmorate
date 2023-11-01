@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
