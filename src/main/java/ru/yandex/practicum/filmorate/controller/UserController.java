@@ -26,7 +26,6 @@ public class UserController extends BaseController<User> {
     @PostMapping //добавление пользователя;
     public User addUser(@Valid @RequestBody User user) {
         log.info("Add user{}", user);
-        validate(user);
         return userService.create(user);
     }
 
@@ -34,7 +33,6 @@ public class UserController extends BaseController<User> {
     @PutMapping //обновление пользователя;
     public User updateUser(@Valid @RequestBody User user) throws EntityNotFoundException {
         log.info("Update user{}", user);
-        validate(user);
         return userService.update(user);
     }
 
@@ -44,12 +42,6 @@ public class UserController extends BaseController<User> {
         return userService.getId(id);
     }
 
-    @Override
-    public void validate(User user) {
-        if (user.getName() == null || user.getName().isBlank() || user.getName().isEmpty()) {
-            user.setName(user.getLogin());
-        }
-    }
 
     @GetMapping("{id}/friends") // возвращаем список пользователей, являющихся его друзьями.
     public List<User> allFriendsForId(@PathVariable Long id) {

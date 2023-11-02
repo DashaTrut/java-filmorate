@@ -14,11 +14,13 @@ public abstract class AbstractService<T extends BaseUnit> implements AbstractSto
 
     @Override
     public T create(T data) {
+        validate(data);
         return inMemoryBaseStorage.create(data);
     }
 
     @Override
     public T update(T data) {
+        validate(data);
         return inMemoryBaseStorage.update(data);
     }
 
@@ -37,4 +39,5 @@ public abstract class AbstractService<T extends BaseUnit> implements AbstractSto
         return inMemoryBaseStorage.delete(data);
     }
 
+    public abstract void validate(T data);
 }

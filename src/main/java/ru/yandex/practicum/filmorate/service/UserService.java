@@ -2,13 +2,13 @@ package ru.yandex.practicum.filmorate.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ru.yandex.practicum.filmorate.exception.EntityNotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.memory.InMemoryBaseStorage;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -22,27 +22,16 @@ public class UserService extends AbstractService<User> {
     public User addFriends(long idUser1, long idUser2) {
         User user1 = getId(idUser1);
         User user2 = getId(idUser2);
-        Set<Long> list = user1.getFriends();
-        list.add(idUser2);
-        user1.setFriends(list);
-        Set<Long> list2 = user2.getFriends();
-        list2.add(idUser1);
-        user2.setFriends(list2);
+        user1.getFriends().add(idUser2);
+        user2.getFriends().add(idUser1);
         return user2;
     }
 
     public User deleteFriends(long idUser1, long idUser2) {
         User user1 = getId(idUser1);
         User user2 = getId(idUser2);
-        Set<Long> list1 = user1.getFriends();
-        if (!list1.contains(idUser2)) {
-            throw new EntityNotFoundException("Этого пользователя нет в друзьях");
-        }
-        list1.remove(idUser2);
-        user1.setFriends(list1);
-        Set<Long> list2 = user2.getFriends();
-        list2.remove(idUser1);
-        user2.setFriends(list2);
+        user1.getFriends().remove(idUser2);
+        user2.getFriends().remove(idUser1);
         return user2;
     }
 
@@ -66,10 +55,16 @@ public class UserService extends AbstractService<User> {
     public List<User> allFriends(Long id) {
         User user = getId(id);
         Set<Long> list1 = user.getFriends();
-        List<User> listFriends = new ArrayList<>();
-        for (Long friend : list1) {
-            listFriends.add(getId(friend));
+        return list1.stream()
+                .map(friend -> getId(friend))
+                .collect(Collectors.toList());
+
+    }
+
+    @Override
+    public void validate(User user) {
+        if (user.getName() == null || user.getName().isBlank() || user.getName().isEmpty()) {
+            user.setName(user.getLogin());
         }
-        return listFriends;
     }
 }

@@ -3,12 +3,10 @@ package ru.yandex.practicum.filmorate.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.service.FilmService;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
 import java.util.List;
 
 
@@ -17,7 +15,6 @@ import java.util.List;
 @RequestMapping("/films")
 @RequiredArgsConstructor
 public class FilmController extends BaseController<Film> {
-    private final LocalDate minReleaseDate = LocalDate.of(1895, 12, 28);
     private final FilmService filmService;
 
     @GetMapping("/popular")
@@ -35,23 +32,21 @@ public class FilmController extends BaseController<Film> {
     @PostMapping //добавление фильма;
     public Film addFilm(@Valid @RequestBody Film film) {
         log.info("Add film{}", film);
-        validate(film);
         return filmService.create(film);
     }
 
     @PutMapping //обновление фильма;
     public Film updateFilm(@Valid @RequestBody Film film) {
         log.info("Update film{}", film);
-        validate(film);
         return filmService.update(film);
     }
 
-    @Override
-    public void validate(Film film) {
-        if (film.getReleaseDate().isBefore(minReleaseDate)) {
-            throw new ValidationException(String.format("Дата релиза раньше %s", minReleaseDate));
-        }
-    }
+//    @Override
+//    public void validate(Film film) {
+//        if (film.getReleaseDate().isBefore(minReleaseDate)) {
+//            throw new ValidationException(String.format("Дата релиза раньше %s", minReleaseDate));
+//        }
+//    }
 
 
     @PutMapping("/{id}/like/{userId}")
