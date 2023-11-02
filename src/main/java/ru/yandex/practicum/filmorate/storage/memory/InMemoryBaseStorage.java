@@ -2,7 +2,7 @@ package ru.yandex.practicum.filmorate.storage.memory;
 
 import ru.yandex.practicum.filmorate.exception.EntityNotFoundException;
 import ru.yandex.practicum.filmorate.model.BaseUnit;
-import ru.yandex.practicum.filmorate.storage.AbstractStorage;
+import ru.yandex.practicum.filmorate.storage.Storage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class InMemoryBaseStorage<T extends BaseUnit> implements AbstractStorage<T> {
+public class InMemoryBaseStorage<T extends BaseUnit> implements Storage<T> {
     private final Map<Long, T> storage = new HashMap<>();
     private long generationId;
 

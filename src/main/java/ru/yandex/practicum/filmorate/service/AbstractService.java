@@ -2,13 +2,13 @@ package ru.yandex.practicum.filmorate.service;
 
 import lombok.AllArgsConstructor;
 import ru.yandex.practicum.filmorate.model.BaseUnit;
-import ru.yandex.practicum.filmorate.storage.AbstractStorage;
+import ru.yandex.practicum.filmorate.storage.Storage;
 import ru.yandex.practicum.filmorate.storage.memory.InMemoryBaseStorage;
 
 import java.util.*;
 
 @AllArgsConstructor
-public abstract class AbstractService<T extends BaseUnit> implements AbstractStorage<T> {
+public abstract class AbstractService<T extends BaseUnit> implements Storage<T> {
 
     private final InMemoryBaseStorage<T> inMemoryBaseStorage;
 

@@ -25,7 +25,7 @@ public class Film extends BaseUnit {
     @Min(1)
     private int duration; //    продолжительность фильма
 
-    public Set<Long> like = new TreeSet<>();
+    private Set<Long> like = new TreeSet<>();
 
 
 }

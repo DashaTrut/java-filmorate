@@ -7,7 +7,6 @@ import ru.yandex.practicum.filmorate.storage.memory.InMemoryBaseStorage;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -36,8 +35,6 @@ public class UserService extends AbstractService<User> {
     }
 
     public List<User> commonFriend(long idUser1, long idUser2) {
-        User user1 = getId(idUser1);
-        User user2 = getId(idUser2);
         List<User> list1 = allFriends(idUser1);
         List<User> longList = new ArrayList<>();
         if (list1.isEmpty()) {
@@ -53,9 +50,9 @@ public class UserService extends AbstractService<User> {
     }
 
     public List<User> allFriends(Long id) {
-        User user = getId(id);
-        Set<Long> list1 = user.getFriends();
-        return list1.stream()
+        return getId(id)
+                .getFriends()
+                .stream()
                 .map(friend -> getId(friend))
                 .collect(Collectors.toList());
 

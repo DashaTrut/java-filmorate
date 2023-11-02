@@ -41,14 +41,6 @@ public class FilmController extends BaseController<Film> {
         return filmService.update(film);
     }
 
-//    @Override
-//    public void validate(Film film) {
-//        if (film.getReleaseDate().isBefore(minReleaseDate)) {
-//            throw new ValidationException(String.format("Дата релиза раньше %s", minReleaseDate));
-//        }
-//    }
-
-
     @PutMapping("/{id}/like/{userId}")
     public Film likeFilm(@PathVariable long id, @PathVariable long userId) {
         log.info("Like film{}", id);

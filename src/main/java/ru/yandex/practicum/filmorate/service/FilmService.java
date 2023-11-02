@@ -30,8 +30,7 @@ public class FilmService extends AbstractService<Film> {
     }
 
     public List<Film> popularList(Integer count) {
-        List<Film> list = getAll();
-        return list
+        return getAll()
                 .stream()
                 .sorted((o1, o2) -> o2.getLike().size() - o1.getLike().size())
                 .limit(count)
