@@ -26,6 +26,8 @@ public class Film extends BaseUnit {
     private int duration; //    продолжительность фильма
 
     private Set<Long> like = new TreeSet<>();
+    private String genre;
+    private String rating;
 
 
 }
