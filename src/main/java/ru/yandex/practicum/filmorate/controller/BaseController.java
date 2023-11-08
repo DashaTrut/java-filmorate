@@ -1,5 +1,6 @@
 package ru.yandex.practicum.filmorate.controller;
 
+import ru.yandex.practicum.filmorate.exception.EntityNotFoundException;
 import ru.yandex.practicum.filmorate.model.BaseUnit;
 
 import java.util.ArrayList;
@@ -16,7 +17,6 @@ public abstract class BaseController<T extends BaseUnit> {
     }
 
     public T update(T data) {
-        validate(data);
         if (!storage.containsKey(data.getId())) {
             throw new EntityNotFoundException(String.format("Обновление невозможно %s не сущесвует", data));
         }
@@ -26,11 +26,10 @@ public abstract class BaseController<T extends BaseUnit> {
     }
 
     public T create(T data) {
-        validate(data);
         data.setId(++generationId);
         storage.put(data.getId(), data);
         return data;
     }
 
-    public abstract void validate(T data);
+
 }

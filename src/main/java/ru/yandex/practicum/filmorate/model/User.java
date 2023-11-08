@@ -9,6 +9,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PastOrPresent;
 import java.time.LocalDate;
+import java.util.Set;
+import java.util.TreeSet;
 
 
 @Data
@@ -25,4 +27,6 @@ public class User extends BaseUnit {
     private String name; //    имя для отображения
     @PastOrPresent
     private LocalDate birthday;
+
+    private Set<Long> friends = new TreeSet<>();
 }

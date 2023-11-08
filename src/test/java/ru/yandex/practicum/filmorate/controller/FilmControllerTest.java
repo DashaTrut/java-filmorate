@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.util.ResourceUtils;
+import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
 
 import java.io.IOException;
@@ -22,15 +23,17 @@ import java.time.LocalDate;
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
+
 public class FilmControllerTest {
     public static final String PATH = "/films";
+    @Autowired
     private FilmController filmController;
     @Autowired
     private MockMvc mockMvc;
 
     @BeforeEach
     void setUp() {
-        filmController = new FilmController();
+
 
     }
 
@@ -61,7 +64,7 @@ public class FilmControllerTest {
                 .duration(100)
                 .build();
 
-        Assertions.assertThrows(EntityNotFoundException.class, () -> filmController.addFilm(film));
+        Assertions.assertThrows(ValidationException.class, () -> filmController.addFilm(film));
     }
 
     @Test
