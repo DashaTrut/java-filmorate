@@ -32,14 +32,13 @@ public class UserDbStorage implements UserStorage {
         String sqlQuery = "INSERT INTO USERS (EMAIL, LOGIN, NAME, BIRTHDAY) VALUES(?, ?, ?, ?);";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
-                    PreparedStatement stmt = connection.prepareStatement(sqlQuery, new String[]{"USER_ID"});
-                    stmt.setString(1, u.getEmail());
-                    stmt.setString(2, u.getLogin());
-                    stmt.setString(3, u.getName());
-                    stmt.setDate(4, Date.valueOf(u.getBirthday()));
-                    return stmt;
-                }
-                , keyHolder);
+            PreparedStatement stmt = connection.prepareStatement(sqlQuery, new String[]{"USER_ID"});
+            stmt.setString(1, u.getEmail());
+            stmt.setString(2, u.getLogin());
+            stmt.setString(3, u.getName());
+            stmt.setDate(4, Date.valueOf(u.getBirthday()));
+            return stmt;
+        }, keyHolder);
         u.setId(keyHolder.getKey().longValue());
         if (getId(u.getId()) == null) {
             throw new EntityNotFoundException(String.format("Добавление не произошло %s ", u));

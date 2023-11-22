@@ -36,14 +36,14 @@ public class FilmDbStorage implements FilmStorage {
         String sqlQuery = "INSERT INTO FILM (NAME, DESCRIPTION, RELEASE_DATE, DURATION, RATING_ID) VALUES(?, ?, ?, ?, ?);";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
-                    PreparedStatement stmt = connection.prepareStatement(sqlQuery, new String[]{"FILM_ID"});
-                    stmt.setString(1, film.getName());
-                    stmt.setString(2, film.getDescription());
-                    stmt.setDate(3, Date.valueOf(film.getReleaseDate()));
-                    stmt.setInt(4, film.getDuration());
-                    stmt.setLong(5, film.getMpa().getId());
-                    return stmt;
-                }, keyHolder);
+            PreparedStatement stmt = connection.prepareStatement(sqlQuery, new String[]{"FILM_ID"});
+            stmt.setString(1, film.getName());
+            stmt.setString(2, film.getDescription());
+            stmt.setDate(3, Date.valueOf(film.getReleaseDate()));
+            stmt.setInt(4, film.getDuration());
+            stmt.setLong(5, film.getMpa().getId());
+            return stmt;
+        }, keyHolder);
         film.setId(keyHolder.getKey().longValue());
         if (!film.getGenres().isEmpty()) {
             for (Genre genre : film.getGenres()) {
