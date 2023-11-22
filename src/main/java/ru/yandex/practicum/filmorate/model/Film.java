@@ -1,5 +1,6 @@
 package ru.yandex.practicum.filmorate.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -7,8 +8,7 @@ import lombok.experimental.SuperBuilder;
 
 import javax.validation.constraints.*;
 import java.time.LocalDate;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.LinkedHashSet;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -24,8 +24,11 @@ public class Film extends BaseUnit {
     private LocalDate releaseDate;
     @Min(1)
     private int duration; //    продолжительность фильма
+    @JsonIgnore
+    private long rate = 0;
 
-    private Set<Long> like = new TreeSet<>();
-
+    @NotNull
+    private Mpa mpa;
+    private LinkedHashSet<Genre> genres = new LinkedHashSet<>();
 
 }

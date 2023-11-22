@@ -5,12 +5,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
-import java.util.Set;
-import java.util.TreeSet;
 
 
 @Data
@@ -23,10 +19,12 @@ public class User extends BaseUnit {
     @NotBlank
     private String email;
     @NotBlank
+    @Pattern(regexp = "^\\S*$", message = "В логине не может быть пробелов")
     private String login;
-    private String name; //    имя для отображения
-    @PastOrPresent
+    private String name;
+    @NotNull
+    @Past
     private LocalDate birthday;
 
-    private Set<Long> friends = new TreeSet<>();
+
 }

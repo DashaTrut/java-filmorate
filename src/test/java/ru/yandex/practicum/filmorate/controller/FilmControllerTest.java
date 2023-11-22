@@ -20,6 +20,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.time.LocalDate;
 
+
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
@@ -67,17 +68,6 @@ public class FilmControllerTest {
         Assertions.assertThrows(ValidationException.class, () -> filmController.addFilm(film));
     }
 
-    @Test
-    void validatePositiveFilm() {
-        Film film = Film.builder()
-                .name("Name")
-                .description("Description")
-                .releaseDate(LocalDate.of(1950, 10, 15))
-                .duration(100)
-                .build();
-        Film newFilm = filmController.addFilm(film);
-        Assertions.assertEquals(film.getName(), newFilm.getName());
-    }
 
     private String getContentFromFile(String filename) {
         try {

@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 
+@Deprecated
 @Component
 public class InMemoryUserStorage extends InMemoryBaseStorage<User> implements UserStorage {
 
