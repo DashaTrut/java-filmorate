@@ -2,8 +2,6 @@ package ru.yandex.practicum.filmorate.storage.db;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -45,8 +43,7 @@ public class FilmDbStorage implements FilmStorage {
                     stmt.setInt(4, film.getDuration());
                     stmt.setLong(5, film.getMpa().getId());
                     return stmt;
-                }
-                , keyHolder);
+                }, keyHolder);
         film.setId(keyHolder.getKey().longValue());
         if (!film.getGenres().isEmpty()) {
             for (Genre genre : film.getGenres()) {
