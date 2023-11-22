@@ -1,37 +1,46 @@
 package ru.yandex.practicum.filmorate.storage.db;
 
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.exception.EntityNotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-
+@Slf4j
 @Qualifier
 @Primary
 @Component
 @RequiredArgsConstructor
 public class UserDbStorage implements UserStorage {
-    private final Logger log = LoggerFactory.getLogger(UserDbStorage.class);
     private final JdbcTemplate jdbcTemplate;
 
-    private long generatedID = 1;
 
     @Override
     public User create(User u) {
         String sqlQuery = "INSERT INTO USERS (EMAIL, LOGIN, NAME, BIRTHDAY) VALUES(?, ?, ?, ?);";
-        u.setId(generatedID++);
-        jdbcTemplate.update(sqlQuery, u.getEmail(), u.getLogin(), u.getName(), Date.valueOf(u.getBirthday()));
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(connection -> {
+                    PreparedStatement stmt = connection.prepareStatement(sqlQuery, new String[]{"USER_ID"});
+                    stmt.setString(1, u.getEmail());
+                    stmt.setString(2, u.getLogin());
+                    stmt.setString(3, u.getName());
+                    stmt.setDate(4, Date.valueOf(u.getBirthday()));
+                    return stmt;
+                }
+                , keyHolder);
+        u.setId(keyHolder.getKey().longValue());
         if (getId(u.getId()) == null) {
             throw new EntityNotFoundException(String.format("Добавление не произошло %s ", u));
         }

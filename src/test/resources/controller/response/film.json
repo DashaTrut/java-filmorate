@@ -1,6 +1,12 @@
 {
+  "id": 1,
   "name": "titaniс",
   "description": "ship and ice",
   "releaseDate" : "1995-04-15",
-  "duration": "130"
+  "duration": "130",
+  "mpa": {
+    "id": 1,
+    "name": "G"
+  },
+  "genres": []
 }
